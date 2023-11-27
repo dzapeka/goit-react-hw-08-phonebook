@@ -3,11 +3,14 @@ import { Filter } from 'components/Filter';
 import { ContactList } from 'components/ContactList';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { fetchContacts } from 'redux/operations';
+import { fetchContacts } from 'redux/contacts/contacts.operations';
 
 import { Notify } from 'notiflix';
-import Loader from './Loader/Loader';
-import { selectError, selectIsLoading } from 'redux/selectors';
+import Loader from './components/Loader/Loader';
+import {
+  selectError,
+  selectIsLoading,
+} from 'redux/contacts/contacts.selectors';
 
 const App = () => {
   const dispatch = useDispatch();
