@@ -1,9 +1,9 @@
 import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import {
-  addContact,
-  deleteContact,
-  fetchContacts,
-} from 'redux/contacts/contacts.operations';
+  addContactThunk,
+  deleteContactThunk,
+  fetchContactsThunk,
+} from './contacts.operations';
 
 const initialState = {
   contacts: {
@@ -24,28 +24,28 @@ const contactsSlice = createSlice({
   },
   extraReducers: builder =>
     builder
-      .addCase(fetchContacts.fulfilled, (state, { payload }) => {
+      .addCase(fetchContactsThunk.fulfilled, (state, { payload }) => {
         state.contacts.isLoading = false;
         state.contacts.items = payload;
       })
-      .addCase(addContact.fulfilled, (state, { payload }) => {
+      .addCase(addContactThunk.fulfilled, (state, { payload }) => {
         state.contacts.isLoading = false;
         state.contacts.items.push(payload);
       })
-      .addCase(deleteContact.fulfilled, (state, { payload }) => {
+      .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
         state.contacts.isLoading = false;
         state.contacts.items = state.contacts.items.filter(
           contact => contact.id !== payload.id
         );
       })
-      .addCase(fetchContacts.pending, state => {
+      .addCase(fetchContactsThunk.pending, state => {
         state.contacts.isLoading = true;
       })
       .addMatcher(
         isAnyOf(
-          fetchContacts.pending,
-          addContact.pending,
-          deleteContact.pending
+          fetchContactsThunk.pending,
+          addContactThunk.pending,
+          deleteContactThunk.pending
         ),
         state => {
           state.contacts.error = null;
@@ -53,9 +53,9 @@ const contactsSlice = createSlice({
       )
       .addMatcher(
         isAnyOf(
-          fetchContacts.rejected,
-          addContact.rejected,
-          deleteContact.rejected
+          fetchContactsThunk.rejected,
+          addContactThunk.rejected,
+          deleteContactThunk.rejected
         ),
         (state, { payload }) => {
           state.contacts.isLoading = false;

@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './ContactForm.module.css';
-import { addContact } from 'redux/contacts/contacts.operations';
+import { addContactThunk } from 'redux/contacts/contacts.operations';
 import { Notify } from 'notiflix';
 import { selectContacts } from 'redux/contacts/contacts.selectors';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [phone, setPhone] = useState('');
+  const [number, setNumber] = useState('');
 
   const nameInputId = nanoid();
   const phoneInputId = nanoid();
@@ -27,16 +27,16 @@ export const ContactForm = () => {
       Notify.info(`${name} is already in contacts.`);
       return;
     }
-    dispatch(addContact({ name, phone }));
+    dispatch(addContactThunk({ name, number }));
     setName('');
-    setPhone('');
+    setNumber('');
   };
 
   const handleChange = event => {
     const { name, value } = event.target;
     const stateFunctions = {
       name: setName,
-      phone: setPhone,
+      number: setNumber,
     };
 
     stateFunctions[name]?.(value);
@@ -62,15 +62,14 @@ export const ContactForm = () => {
         <input
           className="phoneNumberInput"
           type="tel"
-          name="phone"
-          value={phone}
+          name="number"
+          value={number}
           onChange={handleChange}
           id={phoneInputId}
           autoComplete="off"
           required
-          pattern="[0-9]{3}-[0-9]{2}-[0-9]{2}"
-          placeholder="xxx-xx-xx"
-          maxLength="9"
+          maxLength="12"
+          minLength="3"
         />
       </label>
       <button type="submit" className={styles.addContactBtn}>
