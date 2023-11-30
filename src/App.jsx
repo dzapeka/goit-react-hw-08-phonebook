@@ -21,7 +21,7 @@ const appRoutes = [
   {
     path: ROUTES.LOGIN_ROUTE,
     element: (
-      <RestrictedRoute>
+      <RestrictedRoute navigateTo={ROUTES.CONTACTS_ROUTE}>
         <LoginPage />
       </RestrictedRoute>
     ),
@@ -29,7 +29,7 @@ const appRoutes = [
   {
     path: ROUTES.REGISTER_ROUTE,
     element: (
-      <RestrictedRoute>
+      <RestrictedRoute navigateTo={ROUTES.CONTACTS_ROUTE}>
         <RegisterPage />
       </RestrictedRoute>
     ),
