@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -33,7 +34,16 @@ const Layout = ({ children }) => {
           </>
         )}
       </header>
-      <main>{children}</main>
+
+      <main>
+        <Container
+          sx={{
+            marginTop: 5,
+          }}
+        >
+          {children}
+        </Container>
+      </main>
     </>
   );
 };

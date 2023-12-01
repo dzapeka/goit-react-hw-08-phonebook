@@ -1,3 +1,4 @@
+import { Box, Button, Container, TextField } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { logInThunk } from 'redux/auth/auth.operations';
@@ -19,19 +20,44 @@ const LoginForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        <p>Email</p>
-        <input type="email" name="email" required />
-      </label>
-      <label>
-        <p>Password</p>
-        <input type="password" name="password" required />
-      </label>
-      <div>
-        <button type="submit">Log In</button>
-      </div>
-    </form>
+    <Container>
+      <Box
+        sx={{
+          maxWidth: '300px',
+          margin: 'auto',
+        }}
+      >
+        <form onSubmit={handleSubmit}>
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <TextField
+              name="email"
+              id="email-input"
+              label="Email"
+              type="email"
+              size="small"
+              required
+            />
+            <TextField
+              name="password"
+              id="password-input"
+              label="Password"
+              type="password"
+              size="small"
+              required
+            />
+            <Button variant="contained" type="submit">
+              Log In
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Container>
   );
 };
 

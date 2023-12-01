@@ -1,3 +1,4 @@
+import { Box, Container, TextField, Button } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { registerThunk } from 'redux/auth/auth.operations';
@@ -19,23 +20,51 @@ const RegisterForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} autoComplete="off">
-      <label>
-        <p>Username</p>
-        <input type="text" name="name" required />
-      </label>
-      <label>
-        <p>Email</p>
-        <input type="email" name="email" required />
-      </label>
-      <label>
-        <p>Password</p>
-        <input type="password" name="password" required />
-      </label>
-      <div>
-        <button type="submit">Register</button>
-      </div>
-    </form>
+    <Container>
+      <Box
+        sx={{
+          maxWidth: '300px',
+          margin: 'auto',
+        }}
+      >
+        <form onSubmit={handleSubmit} autoComplete="off">
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '20px',
+            }}
+          >
+            <TextField
+              name="name"
+              id="username-input"
+              label="Username"
+              size="small"
+              required
+            />
+            <TextField
+              name="email"
+              id="email-input"
+              label="Email"
+              type="email"
+              size="small"
+              required
+            />
+            <TextField
+              name="password"
+              id="password-input"
+              label="Password"
+              type="password"
+              size="small"
+              required
+            />
+            <Button variant="contained" type="submit">
+              Register
+            </Button>
+          </Box>
+        </form>
+      </Box>
+    </Container>
   );
 };
 
