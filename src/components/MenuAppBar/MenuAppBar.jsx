@@ -15,7 +15,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectUserData } from 'redux/auth/auth.selectors';
 import { NavLink } from 'react-router-dom';
 import { logOutThunk } from 'redux/auth/auth.operations';
-import { NavLinkStyled } from './MenuAppBar.styled';
 
 const MenuAppBar = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -35,6 +34,16 @@ const MenuAppBar = () => {
     dispatch(logOutThunk());
     handleMenuClose();
   };
+
+  const NavLinkButton = ({ to, children }) => (
+    <Button
+      to={to}
+      component={NavLink}
+      sx={{ color: 'inherit', display: 'block' }}
+    >
+      {children}
+    </Button>
+  );
 
   return (
     <AppBar position="static">
@@ -58,23 +67,8 @@ const MenuAppBar = () => {
           >
             PHONEBOOK
           </Typography>
-          <Button
-            to="/"
-            component={NavLink}
-            sx={{ color: 'inherit', display: 'block' }}
-          >
-            Home
-          </Button>
-
-          {isLoggedIn && (
-            <Button
-              to="/contacts"
-              component={NavLink}
-              sx={{ color: 'inherit', display: 'block' }}
-            >
-              Contacts
-            </Button>
-          )}
+          <NavLinkButton to="/">Home</NavLinkButton>
+          {isLoggedIn && <NavLinkButton to="/contacts">Contacts</NavLinkButton>}
         </Box>
         <Box sx={{ display: 'flex', gap: '1rem' }}>
           {isLoggedIn ? (
@@ -100,20 +94,8 @@ const MenuAppBar = () => {
             </>
           ) : (
             <>
-              <Button
-                to="/register"
-                component={NavLink}
-                sx={{ color: 'inherit', display: 'block' }}
-              >
-                Register
-              </Button>
-              <Button
-                to="/login"
-                component={NavLink}
-                sx={{ color: 'inherit', display: 'block' }}
-              >
-                Login
-              </Button>
+              <NavLinkButton to="/register">Register</NavLinkButton>
+              <NavLinkButton to="/login">Login</NavLinkButton>
             </>
           )}
         </Box>
