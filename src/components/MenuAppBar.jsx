@@ -2,6 +2,7 @@ import {
   AppBar,
   Box,
   Button,
+  Container,
   IconButton,
   Menu,
   MenuItem,
@@ -52,65 +53,76 @@ const MenuAppBar = () => {
 
   return (
     <AppBar position="static">
-      <Toolbar>
-        <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center' }}>
-          <ContactPhoneIcon
-            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
-          />
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{
-              mr: 5,
-              display: { xs: 'none', md: 'flex' },
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            PHONEBOOK
-          </Typography>
-          <NavLinkButton to="/">Home</NavLinkButton>
-          {isLoggedIn && <NavLinkButton to="/contacts">Contacts</NavLinkButton>}
-        </Box>
-        {!isAuthLoading && (
-          <Box sx={{ display: 'flex', gap: '1rem' }}>
-            {isLoggedIn ? (
-              <>
-                <Box
-                  sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
-                >
-                  <Typography sx={{ display: { xs: 'none', md: 'flex' } }}>
-                    {userData.name}
-                  </Typography>
-                  <IconButton
-                    size="large"
-                    edge="end"
-                    color="inherit"
-                    onClick={handleMenuOpen}
-                  >
-                    <AccountCircle />
-                  </IconButton>
-                  <Menu
-                    anchorEl={anchorEl}
-                    open={Boolean(anchorEl)}
-                    onClose={handleMenuClose}
-                  >
-                    <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-                  </Menu>
-                </Box>
-              </>
-            ) : (
-              <>
-                <NavLinkButton to="/register">Register</NavLinkButton>
-                <NavLinkButton to="/login">Login</NavLinkButton>
-              </>
+      <Container>
+        <Toolbar>
+          <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center' }}>
+            <ContactPhoneIcon
+              sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+            />
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                mr: 5,
+                display: { xs: 'none', md: 'flex' },
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+              }}
+            >
+              PHONEBOOK
+            </Typography>
+            <NavLinkButton to="/">Home</NavLinkButton>
+            {isLoggedIn && (
+              <NavLinkButton to="/contacts">Contacts</NavLinkButton>
             )}
           </Box>
-        )}
-      </Toolbar>
+          {!isAuthLoading && (
+            <Box sx={{ display: 'flex', gap: '1rem' }}>
+              {isLoggedIn ? (
+                <>
+                  <Box
+                    sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
+                  >
+                    <Typography
+                      sx={{
+                        display: 'none',
+                        '@media (min-width: 425px)': {
+                          display: 'flex',
+                        },
+                      }}
+                    >
+                      {userData.name}
+                    </Typography>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      color="inherit"
+                      onClick={handleMenuOpen}
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                    <Menu
+                      anchorEl={anchorEl}
+                      open={Boolean(anchorEl)}
+                      onClose={handleMenuClose}
+                    >
+                      <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                    </Menu>
+                  </Box>
+                </>
+              ) : (
+                <>
+                  <NavLinkButton to="/register">Register</NavLinkButton>
+                  <NavLinkButton to="/login">Login</NavLinkButton>
+                </>
+              )}
+            </Box>
+          )}
+        </Toolbar>
+      </Container>
     </AppBar>
   );
 };
