@@ -30,7 +30,7 @@ export const ContactForm = () => {
     const { name, value } = event.target;
     let sanitizedValue = value;
     if (name === 'number') {
-      sanitizedValue = value.replace(/[^0-9-]/g, '');
+      sanitizedValue = value.replace(/[^0-9-+]/g, '');
     }
 
     setFormData(prevData => ({ ...prevData, [name]: sanitizedValue }));
@@ -48,7 +48,7 @@ export const ContactForm = () => {
           size="small"
           autoComplete="off"
           inputProps={{
-            pattern: "^[a-zA-Zа-яА-ЯїіІ'Ї\\s]+$",
+            pattern: "^[0-9a-zA-Zа-яА-ЯїіІ'Ї\\s]+$",
             maxLength: 30,
             minLength: 3,
             required: true,
