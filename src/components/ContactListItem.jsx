@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 
 import { deleteContactThunk } from 'redux/contacts/contacts.operations';
-import { IconButton, ListItem, Typography } from '@mui/material';
+import { Grid, IconButton, ListItem, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 export const ContactListItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
@@ -22,9 +22,18 @@ export const ContactListItem = ({ id, name, number }) => {
         </IconButton>
       }
     >
-      <Typography variant="body1">
-        {name}: {number}
-      </Typography>
+      <Grid container spacing={2} alignItems="center">
+        <Grid item xs={6}>
+          <Typography variant="body1" sx={{ fontSize: '1.2rem' }}>
+            {name}
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Typography variant="body1" sx={{ color: '#666' }}>
+            {number}
+          </Typography>
+        </Grid>
+      </Grid>
     </ListItem>
   );
 };
