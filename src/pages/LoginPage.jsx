@@ -1,5 +1,5 @@
 import FormLayoutWrapper from 'components/FormLayoutWrapper';
-import LoginForm from 'components/LoginForm/LoginForm';
+import LoginForm from 'components/LoginForm';
 import { Helmet } from 'react-helmet';
 
 const LoginPage = () => {
