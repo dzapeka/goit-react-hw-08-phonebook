@@ -61,7 +61,7 @@ const ContactsPage = () => {
           <Loader />
         ) : contacts.length > 0 ? (
           <>
-            <Filter />
+            {contacts.length > 1 && <Filter />}
             <ContactList />
           </>
         ) : (

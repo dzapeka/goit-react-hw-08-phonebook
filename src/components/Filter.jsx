@@ -20,6 +20,10 @@ export const Filter = () => {
       id={filterInputId}
       autoComplete="off"
       size="small"
+      sx={{
+        width: '100%',
+        marginBottom: '16px',
+      }}
     />
   );
 };
