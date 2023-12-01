@@ -39,7 +39,9 @@ const RegisterForm = () => {
             label="Username"
             size="small"
             autoComplete="username"
-            required
+            inputProps={{
+              required: true,
+            }}
           />
           <TextField
             name="email"
@@ -48,7 +50,9 @@ const RegisterForm = () => {
             type="email"
             size="small"
             autoComplete="email"
-            required
+            inputProps={{
+              required: true,
+            }}
           />
           <TextField
             name="password"
@@ -57,7 +61,9 @@ const RegisterForm = () => {
             type="password"
             size="small"
             autoComplete="new-password"
-            required
+            inputProps={{
+              required: true,
+            }}
           />
           <Button variant="contained" type="submit">
             Register

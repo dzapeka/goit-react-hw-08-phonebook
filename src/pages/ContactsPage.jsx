@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContactsThunk } from 'redux/contacts/contacts.operations';
 import {
+  selectContacts,
   selectContactsError,
   selectContactsIsLoading,
 } from 'redux/contacts/contacts.selectors';
@@ -18,6 +19,7 @@ const ContactsPage = () => {
   const dispatch = useDispatch();
   const error = useSelector(selectContactsError);
   const isLoading = useSelector(selectContactsIsLoading);
+  const contacts = useSelector(selectContacts);
 
   useEffect(() => {
     dispatch(fetchContactsThunk());
@@ -49,9 +51,24 @@ const ContactsPage = () => {
       >
         Contacts
       </Typography>
-      <Box maxWidth="500px" border="1px solid tomato" margin="auto">
-        <Filter />
-        {isLoading ? <Loader /> : <ContactList />}
+      <Box
+        maxWidth="500px"
+        border="1px solid #ccc"
+        margin="auto"
+        padding="16px"
+      >
+        {isLoading ? (
+          <Loader />
+        ) : contacts.length > 0 ? (
+          <>
+            <Filter />
+            <ContactList />
+          </>
+        ) : (
+          <Typography sx={{ textAlign: 'center' }}>
+            Your contacts list is empty. Let's add your first one!
+          </Typography>
+        )}
       </Box>
     </>
   );

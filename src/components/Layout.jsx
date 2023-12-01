@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { logOutThunk } from 'redux/auth/auth.operations';
 import { selectIsLoggedIn, selectUserData } from 'redux/auth/auth.selectors';
+import MenuAppBar from './MenuAppBar';
 
 const Layout = ({ children }) => {
   const dispatch = useDispatch();
@@ -16,23 +17,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <header>
-        <div>
-          <NavLink to="/">Home</NavLink>
-          {isLoggedIn ? (
-            <NavLink to="/contacts">Contacts</NavLink>
-          ) : (
-            <>
-              <NavLink to="/register">Register</NavLink>
-              <NavLink to="/login">Login</NavLink>
-            </>
-          )}
-        </div>
-        {isLoggedIn && (
-          <>
-            <div>{userData.name}</div>
-            <button onClick={handleLogout}>Log Out</button>
-          </>
-        )}
+        <MenuAppBar />
       </header>
 
       <main>

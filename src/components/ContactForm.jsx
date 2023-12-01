@@ -6,8 +6,7 @@ import { selectContacts } from 'redux/contacts/contacts.selectors';
 import { Box, Button, TextField } from '@mui/material';
 
 export const ContactForm = () => {
-  const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [formData, setFormData] = useState({ name: '', number: '' });
 
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
@@ -16,16 +15,15 @@ export const ContactForm = () => {
     event.preventDefault();
 
     const isExists = contacts.some(
-      contact => contact.name.toLowerCase() === name.toLowerCase()
+      contact => contact.name.toLowerCase() === formData.name.toLowerCase()
     );
 
     if (isExists) {
-      Notify.info(`${name} is already in contacts.`);
+      Notify.info(`${formData.name} is already in contacts.`);
       return;
     }
-    dispatch(addContactThunk({ name, number }));
-    setName('');
-    setNumber('');
+    dispatch(addContactThunk(formData));
+    setFormData({ name: '', number: '' });
   };
 
   const handleChange = event => {
@@ -35,12 +33,7 @@ export const ContactForm = () => {
       sanitizedValue = value.replace(/[^0-9-]/g, '');
     }
 
-    const stateFunctions = {
-      name: setName,
-      number: setNumber,
-    };
-
-    stateFunctions[name]?.(sanitizedValue);
+    setFormData(prevData => ({ ...prevData, [name]: sanitizedValue }));
   };
 
   return (
@@ -54,7 +47,7 @@ export const ContactForm = () => {
       >
         <TextField
           name="name"
-          value={name}
+          value={formData.name}
           onChange={handleChange}
           id="name-input"
           label="Name"
@@ -62,14 +55,14 @@ export const ContactForm = () => {
           autoComplete="off"
           inputProps={{
             pattern: "^[a-zA-Zа-яА-ЯїіІ'Ї\\s]+$",
-            maxLength: 20,
+            maxLength: 30,
             minLength: 3,
+            required: true,
           }}
-          required
         />
         <TextField
           name="number"
-          value={number}
+          value={formData.number}
           onChange={handleChange}
           id="number-input"
           label="Number"
@@ -80,8 +73,8 @@ export const ContactForm = () => {
           inputProps={{
             maxLength: 15,
             minLength: 3,
+            required: true,
           }}
-          required
         />
         <Button variant="contained" type="submit">
           Add contact

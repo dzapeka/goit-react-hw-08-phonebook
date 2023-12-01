@@ -7,7 +7,7 @@ export const ContactList = () => {
   const visibleContacts = useSelector(selectVisibleContacts);
 
   return (
-    <List>
+    <List dense={true}>
       {visibleContacts.map(contact => (
         <ContactListItem key={contact.id} {...contact} />
       ))}

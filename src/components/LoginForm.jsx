@@ -38,7 +38,9 @@ const LoginForm = () => {
             type="email"
             size="small"
             autoComplete="email"
-            required
+            inputProps={{
+              required: true,
+            }}
           />
           <TextField
             name="password"
@@ -47,7 +49,9 @@ const LoginForm = () => {
             type="password"
             size="small"
             autoComplete="current-password"
-            required
+            inputProps={{
+              required: true,
+            }}
           />
           <Button variant="contained" type="submit">
             Log In
