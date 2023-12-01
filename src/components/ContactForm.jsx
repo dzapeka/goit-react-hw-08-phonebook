@@ -47,6 +47,7 @@ export const ContactForm = () => {
           label="Name"
           size="small"
           autoComplete="off"
+          spellCheck={false}
           inputProps={{
             pattern: "^[0-9a-zA-Zа-яА-ЯїіІ'Ї\\s]+$",
             maxLength: 30,
