@@ -8,12 +8,14 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
+import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectIsLoggedIn, selectUserData } from 'redux/auth/auth.selectors';
 import { NavLink } from 'react-router-dom';
 import { logOutThunk } from 'redux/auth/auth.operations';
+import { NavLinkStyled } from './MenuAppBar.styled';
 
 const MenuAppBar = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
@@ -37,26 +39,41 @@ const MenuAppBar = () => {
   return (
     <AppBar position="static">
       <Toolbar>
-        <Box sx={{ display: 'flex', flexGrow: 1 }}>
-          <Typography variant="h6" component="div">
-            Phonebook
+        <Box sx={{ display: 'flex', flexGrow: 1, alignItems: 'center' }}>
+          <ContactPhoneIcon
+            sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}
+          />
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{
+              mr: 5,
+              display: { xs: 'none', md: 'flex' },
+              fontFamily: 'monospace',
+              fontWeight: 700,
+              letterSpacing: '.3rem',
+              color: 'inherit',
+              textDecoration: 'none',
+            }}
+          >
+            PHONEBOOK
           </Typography>
-          <NavLink
+          <Button
             to="/"
-            className="nav-link"
-            activeClassName="active-link"
-            exact
+            component={NavLink}
+            sx={{ color: 'inherit', display: 'block' }}
           >
             Home
-          </NavLink>
+          </Button>
+
           {isLoggedIn && (
-            <NavLink
+            <Button
               to="/contacts"
-              className="nav-link"
-              activeClassName="active-link"
+              component={NavLink}
+              sx={{ color: 'inherit', display: 'block' }}
             >
               Contacts
-            </NavLink>
+            </Button>
           )}
         </Box>
         <Box sx={{ display: 'flex', gap: '1rem' }}>
@@ -83,20 +100,20 @@ const MenuAppBar = () => {
             </>
           ) : (
             <>
-              <NavLink
+              <Button
                 to="/register"
-                className="nav-link"
-                activeClassName="active-link"
+                component={NavLink}
+                sx={{ color: 'inherit', display: 'block' }}
               >
                 Register
-              </NavLink>
-              <NavLink
+              </Button>
+              <Button
                 to="/login"
-                className="nav-link"
-                activeClassName="active-link"
+                component={NavLink}
+                sx={{ color: 'inherit', display: 'block' }}
               >
                 Login
-              </NavLink>
+              </Button>
             </>
           )}
         </Box>
