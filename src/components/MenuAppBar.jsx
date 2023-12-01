@@ -74,7 +74,9 @@ const MenuAppBar = () => {
           {isLoggedIn ? (
             <>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <Typography>{userData.name}</Typography>
+                <Typography sx={{ display: { xs: 'none', md: 'flex' } }}>
+                  {userData.name}
+                </Typography>
                 <IconButton
                   size="large"
                   edge="end"

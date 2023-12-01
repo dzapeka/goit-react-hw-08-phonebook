@@ -38,13 +38,7 @@ export const ContactForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      <Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          gap: '14px',
-        }}
-      >
+      <Box sx={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
         <TextField
           name="name"
           value={formData.name}
