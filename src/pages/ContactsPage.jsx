@@ -1,6 +1,8 @@
+import { Typography } from '@mui/material';
 import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
+import FormLayoutWrapper from 'components/FormLayoutWrapper';
 import Loader from 'components/Loader/Loader';
 import { Notify } from 'notiflix';
 import React, { useEffect } from 'react';
@@ -32,13 +34,23 @@ const ContactsPage = () => {
       <Helmet>
         <title>Contacts | Phonebook </title>
       </Helmet>
-      <div>
-        <h1>Phonebook</h1>
+      <Typography variant="h4" textAlign="center" marginBottom={1}>
+        Add new contact
+      </Typography>
+      <FormLayoutWrapper>
         <ContactForm />
-        <h2>Contacts</h2>
-        <Filter />
-        {isLoading ? <Loader /> : <ContactList />}
-      </div>
+      </FormLayoutWrapper>
+
+      <Typography
+        variant="h4"
+        textAlign="center"
+        marginBottom={1}
+        marginTop={6}
+      >
+        Contacts
+      </Typography>
+      <Filter />
+      {isLoading ? <Loader /> : <ContactList />}
     </>
   );
 };

@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
-import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import styles from './ContactForm.module.css';
 import { addContactThunk } from 'redux/contacts/contacts.operations';
 import { Notify } from 'notiflix';
 import { selectContacts } from 'redux/contacts/contacts.selectors';
+import { Box, Button, TextField } from '@mui/material';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-
-  const nameInputId = nanoid();
-  const phoneInputId = nanoid();
 
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
@@ -43,38 +39,42 @@ export const ContactForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className={styles.contactForm}>
-      <label htmlFor={nameInputId}>
-        <p className={styles.labelText}>Name</p>
-        <input
-          type="text"
+    <form onSubmit={handleSubmit}>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '14px',
+        }}
+      >
+        <TextField
           name="name"
           value={name}
           onChange={handleChange}
-          id={nameInputId}
+          id="name-input"
+          label="Name"
+          size="small"
+          pattern="^[a-zA-Zа-яА-ЯїіІ'Ї\s]+$"
           autoComplete="off"
           required
-          pattern="^[a-zA-Zа-яА-ЯїіІ'Ї\s]+$"
         />
-      </label>
-      <label htmlFor={phoneInputId}>
-        <p className={styles.labelText}>Phone</p>
-        <input
-          className="phoneNumberInput"
-          type="tel"
+        <TextField
           name="number"
+          type="tel"
           value={number}
           onChange={handleChange}
-          id={phoneInputId}
+          id="number-input"
+          label="Number"
+          size="small"
           autoComplete="off"
-          required
           maxLength="12"
           minLength="3"
+          required
         />
-      </label>
-      <button type="submit" className={styles.addContactBtn}>
-        Add contact
-      </button>
+        <Button variant="contained" type="submit">
+          Add contact
+        </Button>
+      </Box>
     </form>
   );
 };

@@ -1,3 +1,4 @@
+import FormLayoutWrapper from 'components/FormLayoutWrapper';
 import RegisterForm from 'components/RegisterForm/RegisterForm';
 import { Helmet } from 'react-helmet';
 
@@ -7,7 +8,9 @@ const RegisterPage = () => {
       <Helmet>
         <title>Registration | Phonebook </title>
       </Helmet>
-      <RegisterForm />
+      <FormLayoutWrapper>
+        <RegisterForm />
+      </FormLayoutWrapper>
     </>
   );
 };
