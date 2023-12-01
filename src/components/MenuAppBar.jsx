@@ -41,28 +41,6 @@ const MenuAppBar = () => {
           <Typography variant="h6" component="div">
             Phonebook
           </Typography>
-          {isLoggedIn && (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-              <Typography>{userData.name}</Typography>
-              <IconButton
-                size="large"
-                edge="end"
-                color="inherit"
-                onClick={handleMenuOpen}
-              >
-                <AccountCircle />
-              </IconButton>
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={handleMenuClose}
-              >
-                <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-              </Menu>
-            </Box>
-          )}
-        </Box>
-        <Box sx={{ display: 'flex', gap: '1rem' }}>
           <NavLink
             to="/"
             className="nav-link"
@@ -71,7 +49,7 @@ const MenuAppBar = () => {
           >
             Home
           </NavLink>
-          {isLoggedIn ? (
+          {isLoggedIn && (
             <NavLink
               to="/contacts"
               className="nav-link"
@@ -79,6 +57,30 @@ const MenuAppBar = () => {
             >
               Contacts
             </NavLink>
+          )}
+        </Box>
+        <Box sx={{ display: 'flex', gap: '1rem' }}>
+          {isLoggedIn ? (
+            <>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                <Typography>{userData.name}</Typography>
+                <IconButton
+                  size="large"
+                  edge="end"
+                  color="inherit"
+                  onClick={handleMenuOpen}
+                >
+                  <AccountCircle />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={Boolean(anchorEl)}
+                  onClose={handleMenuClose}
+                >
+                  <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                </Menu>
+              </Box>
+            </>
           ) : (
             <>
               <NavLink
