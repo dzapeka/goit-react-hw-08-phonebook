@@ -12,12 +12,17 @@ import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { selectIsLoggedIn, selectUserData } from 'redux/auth/auth.selectors';
+import {
+  selectAuthIsLoading,
+  selectIsLoggedIn,
+  selectUserData,
+} from 'redux/auth/auth.selectors';
 import { NavLink } from 'react-router-dom';
 import { logOutThunk } from 'redux/auth/auth.operations';
 
 const MenuAppBar = () => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
+  const isAuthLoading = useSelector(selectAuthIsLoading);
   const userData = useSelector(selectUserData);
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -70,37 +75,41 @@ const MenuAppBar = () => {
           <NavLinkButton to="/">Home</NavLinkButton>
           {isLoggedIn && <NavLinkButton to="/contacts">Contacts</NavLinkButton>}
         </Box>
-        <Box sx={{ display: 'flex', gap: '1rem' }}>
-          {isLoggedIn ? (
-            <>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <Typography sx={{ display: { xs: 'none', md: 'flex' } }}>
-                  {userData.name}
-                </Typography>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  color="inherit"
-                  onClick={handleMenuOpen}
+        {!isAuthLoading && (
+          <Box sx={{ display: 'flex', gap: '1rem' }}>
+            {isLoggedIn ? (
+              <>
+                <Box
+                  sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}
                 >
-                  <AccountCircle />
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleMenuClose}
-                >
-                  <MenuItem onClick={handleLogout}>Log Out</MenuItem>
-                </Menu>
-              </Box>
-            </>
-          ) : (
-            <>
-              <NavLinkButton to="/register">Register</NavLinkButton>
-              <NavLinkButton to="/login">Login</NavLinkButton>
-            </>
-          )}
-        </Box>
+                  <Typography sx={{ display: { xs: 'none', md: 'flex' } }}>
+                    {userData.name}
+                  </Typography>
+                  <IconButton
+                    size="large"
+                    edge="end"
+                    color="inherit"
+                    onClick={handleMenuOpen}
+                  >
+                    <AccountCircle />
+                  </IconButton>
+                  <Menu
+                    anchorEl={anchorEl}
+                    open={Boolean(anchorEl)}
+                    onClose={handleMenuClose}
+                  >
+                    <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+                  </Menu>
+                </Box>
+              </>
+            ) : (
+              <>
+                <NavLinkButton to="/register">Register</NavLinkButton>
+                <NavLinkButton to="/login">Login</NavLinkButton>
+              </>
+            )}
+          </Box>
+        )}
       </Toolbar>
     </AppBar>
   );
