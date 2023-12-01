@@ -89,12 +89,12 @@ const MenuAppBar = () => {
                     <Typography
                       sx={{
                         display: 'none',
-                        '@media (min-width: 425px)': {
+                        '@media (min-width: 600px)': {
                           display: 'flex',
                         },
                       }}
                     >
-                      {userData.name}
+                      {userData.email}
                     </Typography>
                     <IconButton
                       size="large"
