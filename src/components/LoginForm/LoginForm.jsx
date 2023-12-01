@@ -1,4 +1,4 @@
-import { Box, Button, Container, TextField } from '@mui/material';
+import { Box, Button, Container, TextField, Typography } from '@mui/material';
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { logInThunk } from 'redux/auth/auth.operations';
@@ -27,6 +27,9 @@ const LoginForm = () => {
           margin: 'auto',
         }}
       >
+        <Typography variant="h4" textAlign="center" marginBottom={3}>
+          Log In
+        </Typography>
         <form onSubmit={handleSubmit}>
           <Box
             sx={{
@@ -41,6 +44,7 @@ const LoginForm = () => {
               label="Email"
               type="email"
               size="small"
+              autoComplete="email"
               required
             />
             <TextField
@@ -49,6 +53,7 @@ const LoginForm = () => {
               label="Password"
               type="password"
               size="small"
+              autoComplete="current-password"
               required
             />
             <Button variant="contained" type="submit">
