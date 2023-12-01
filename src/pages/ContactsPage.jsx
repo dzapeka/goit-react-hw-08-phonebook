@@ -1,4 +1,4 @@
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { ContactForm } from 'components/ContactForm';
 import { ContactList } from 'components/ContactList';
 import { Filter } from 'components/Filter';
@@ -49,8 +49,10 @@ const ContactsPage = () => {
       >
         Contacts
       </Typography>
-      <Filter />
-      {isLoading ? <Loader /> : <ContactList />}
+      <Box maxWidth="500px" border="1px solid tomato" margin="auto">
+        <Filter />
+        {isLoading ? <Loader /> : <ContactList />}
+      </Box>
     </>
   );
 };

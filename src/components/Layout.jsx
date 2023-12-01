@@ -39,6 +39,7 @@ const Layout = ({ children }) => {
         <Container
           sx={{
             marginTop: 5,
+            padding: 0,
           }}
         >
           {children}

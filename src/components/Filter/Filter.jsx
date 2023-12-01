@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
-import styles from './Filter.module.css';
 import { useDispatch } from 'react-redux';
 import { setFilter } from 'redux/contacts/contacts.reducer';
+import { TextField } from '@mui/material';
 
 export const Filter = () => {
   const filterInputId = nanoid();
@@ -12,16 +12,14 @@ export const Filter = () => {
   };
 
   return (
-    <label htmlFor={filterInputId}>
-      <p className={styles.labelText}>Find contacts by name</p>
-      <input
-        type="text"
-        name="filter"
-        onChange={handleChange}
-        id={filterInputId}
-        autoComplete="off"
-        required
-      />
-    </label>
+    <TextField
+      type="text"
+      name="filter"
+      onChange={handleChange}
+      label="Find contacts by name"
+      id={filterInputId}
+      autoComplete="off"
+      size="small"
+    />
   );
 };

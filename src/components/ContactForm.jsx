@@ -30,12 +30,17 @@ export const ContactForm = () => {
 
   const handleChange = event => {
     const { name, value } = event.target;
+    let sanitizedValue = value;
+    if (name === 'number') {
+      sanitizedValue = value.replace(/[^0-9-]/g, '');
+    }
+
     const stateFunctions = {
       name: setName,
       number: setNumber,
     };
 
-    stateFunctions[name]?.(value);
+    stateFunctions[name]?.(sanitizedValue);
   };
 
   return (
@@ -54,13 +59,16 @@ export const ContactForm = () => {
           id="name-input"
           label="Name"
           size="small"
-          pattern="^[a-zA-Zа-яА-ЯїіІ'Ї\s]+$"
           autoComplete="off"
+          inputProps={{
+            pattern: "^[a-zA-Zа-яА-ЯїіІ'Ї\\s]+$",
+            maxLength: 20,
+            minLength: 3,
+          }}
           required
         />
         <TextField
           name="number"
-          type="tel"
           value={number}
           onChange={handleChange}
           id="number-input"
@@ -69,6 +77,10 @@ export const ContactForm = () => {
           autoComplete="off"
           maxLength="12"
           minLength="3"
+          inputProps={{
+            maxLength: 15,
+            minLength: 3,
+          }}
           required
         />
         <Button variant="contained" type="submit">
