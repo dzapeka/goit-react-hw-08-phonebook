@@ -5,8 +5,9 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import * as ROUTES from 'constants/routes.js';
 import RestrictedRoute from 'RestrictedRoute';
 import PrivateRoute from 'PrivateRoute';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { refreshUserThunk } from 'redux/auth/auth.operations';
+import { selectAuthIsRefreshing } from 'redux/auth/auth.selectors';
 
 const HomePage = lazy(() => import('pages/HomePage'));
 const ContactsPage = lazy(() => import('pages/ContactsPage'));
@@ -46,12 +47,15 @@ const appRoutes = [
 
 const App = () => {
   const dispatch = useDispatch();
+  const isRefreshing = useSelector(selectAuthIsRefreshing);
 
   useEffect(() => {
     dispatch(refreshUserThunk());
   }, [dispatch]);
 
-  return (
+  return isRefreshing ? (
+    <Loader />
+  ) : (
     <Layout>
       <Suspense fallback={<Loader />}>
         <Routes>

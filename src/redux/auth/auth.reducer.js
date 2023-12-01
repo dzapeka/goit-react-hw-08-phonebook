@@ -12,6 +12,7 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isLoading: false,
+  isRefreshing: false,
   error: null,
 };
 
@@ -35,10 +36,17 @@ const authSlice = createSlice({
       .addCase(logOutThunk.fulfilled, () => {
         return initialState;
       })
+      .addCase(refreshUserThunk.pending, state => {
+        state.isRefreshing = true;
+      })
       .addCase(refreshUserThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isLoggedIn = true;
+        state.isRefreshing = false;
         state.userData = payload;
+      })
+      .addCase(refreshUserThunk.rejected, state => {
+        state.isRefreshing = false;
       })
       .addMatcher(
         isAnyOf(

@@ -7,8 +7,7 @@ import Loader from 'components/Loader/Loader';
 import { Notify } from 'notiflix';
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchContactsThunk } from 'redux/contacts/contacts.operations';
+import { useSelector } from 'react-redux';
 import {
   selectContacts,
   selectContactsError,
@@ -16,14 +15,9 @@ import {
 } from 'redux/contacts/contacts.selectors';
 
 const ContactsPage = () => {
-  const dispatch = useDispatch();
   const error = useSelector(selectContactsError);
   const isLoading = useSelector(selectContactsIsLoading);
   const contacts = useSelector(selectContacts);
-
-  useEffect(() => {
-    dispatch(fetchContactsThunk());
-  }, [dispatch]);
 
   useEffect(() => {
     if (error) {
