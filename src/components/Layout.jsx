@@ -1,6 +1,6 @@
 import { Container } from '@mui/material';
 import React from 'react';
-import MenuAppBar from './MenuAppBar/MenuAppBar';
+import MenuAppBar from './MenuAppBar';
 
 const Layout = ({ children }) => {
   return (
