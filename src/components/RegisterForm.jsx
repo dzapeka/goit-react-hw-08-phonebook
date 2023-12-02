@@ -16,7 +16,6 @@ const RegisterForm = () => {
     };
 
     dispatch(registerThunk(userData));
-    form.reset();
   };
 
   return (

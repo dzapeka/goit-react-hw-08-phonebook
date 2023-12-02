@@ -15,7 +15,6 @@ const LoginForm = () => {
     };
 
     dispatch(logInThunk(userData));
-    form.reset();
   };
 
   return (
