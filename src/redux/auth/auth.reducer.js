@@ -18,6 +18,11 @@ const initialState = {
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    clearAuthError: state => {
+      state.error = null;
+    },
+  },
   extraReducers: builder =>
     builder
       .addCase(logInThunk.fulfilled, (state, { payload }) => {
@@ -66,4 +71,5 @@ const authSlice = createSlice({
       ),
 });
 
+export const { clearAuthError } = authSlice.actions;
 export const authReducer = authSlice.reducer;
