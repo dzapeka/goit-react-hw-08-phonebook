@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { LOGIN_ERROR, REGISTRATION_ERROR } from 'constants/errors';
 
 export const axiosInstance = axios.create({
   baseURL: 'https://connections-api.herokuapp.com/',
@@ -21,7 +22,9 @@ export const registerThunk = createAsyncThunk(
       setAuthHeader(data.token);
       return data;
     } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+      return thunkApi.rejectWithValue(
+        error.response.status === 400 ? REGISTRATION_ERROR : error.message
+      );
     }
   }
 );
@@ -34,10 +37,8 @@ export const logInThunk = createAsyncThunk(
       setAuthHeader(data.token);
       return data;
     } catch (error) {
-      const loginError = 'Incorrect email or password. Please try again.';
-      console.log(error);
       return thunkAPI.rejectWithValue(
-        error.response.status === 400 ? loginError : error.message
+        error.response.status === 400 ? LOGIN_ERROR : error.message
       );
     }
   }
