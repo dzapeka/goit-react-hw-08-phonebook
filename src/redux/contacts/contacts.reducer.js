@@ -26,19 +26,28 @@ const contactsSlice = createSlice({
   extraReducers: builder =>
     builder
       .addCase(fetchContactsThunk.fulfilled, (state, { payload }) => {
-        state.contacts.isLoading = false;
-        state.contacts.items = payload;
+        state.contacts = {
+          ...state.contacts,
+          isLoading: false,
+          items: payload,
+        };
       })
       .addCase(addContactThunk.fulfilled, (state, { payload }) => {
-        state.contacts.isLoading = false;
-        state.contacts.isContactCreating = false;
-        state.contacts.items.push(payload);
+        state.contacts = {
+          ...state.contacts,
+          isLoading: false,
+          isContactCreating: false,
+          items: [...state.contacts.items, payload],
+        };
       })
       .addCase(deleteContactThunk.fulfilled, (state, { payload }) => {
-        state.contacts.isLoading = false;
-        state.contacts.items = state.contacts.items.filter(
-          contact => contact.id !== payload.id
-        );
+        state.contacts = {
+          ...state.contacts,
+          isLoading: false,
+          items: state.contacts.items.filter(
+            contact => contact.id !== payload.id
+          ),
+        };
       })
       .addCase(fetchContactsThunk.pending, state => {
         state.contacts.isLoading = true;
@@ -63,9 +72,12 @@ const contactsSlice = createSlice({
           deleteContactThunk.rejected
         ),
         (state, { payload }) => {
-          state.contacts.isLoading = false;
-          state.contacts.isContactCreating = false;
-          state.contacts.error = payload;
+          state.contacts = {
+            ...state.contacts,
+            isLoading: false,
+            isContactCreating: false,
+            error: payload,
+          };
         }
       ),
 });
