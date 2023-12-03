@@ -2,14 +2,19 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContactThunk } from 'redux/contacts/contacts.operations';
 import { Notify } from 'notiflix';
-import { selectContacts } from 'redux/contacts/contacts.selectors';
-import { Box, Button, TextField } from '@mui/material';
+import {
+  selectContacts,
+  selectContactsIsContactCreating,
+} from 'redux/contacts/contacts.selectors';
+import { Box, TextField } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 
 export const ContactForm = () => {
-  const [formData, setFormData] = useState({ name: '', number: '' });
-
   const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({ name: '', number: '' });
   const contacts = useSelector(selectContacts);
+  const isContactCreating = useSelector(selectContactsIsContactCreating);
 
   const handleSubmit = event => {
     event.preventDefault();
@@ -71,9 +76,13 @@ export const ContactForm = () => {
             required: true,
           }}
         />
-        <Button variant="contained" type="submit">
+        <LoadingButton
+          variant="contained"
+          loading={isContactCreating}
+          type="submit"
+        >
           Add contact
-        </Button>
+        </LoadingButton>
       </Box>
     </form>
   );
