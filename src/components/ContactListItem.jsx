@@ -1,16 +1,23 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { deleteContactThunk } from 'redux/contacts/contacts.operations';
-import { Grid, IconButton, ListItem, Typography } from '@mui/material';
+import { Grid, ListItem, Typography } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { selectContactsIsContactDeleting } from 'redux/contacts/contacts.selectors';
 import { LoadingButton } from '@mui/lab';
+import { useState } from 'react';
 export const ContactListItem = ({ id, name, number }) => {
   const dispatch = useDispatch();
   const isContactDeleting = useSelector(selectContactsIsContactDeleting);
+  const [isDeleteLoading, setIsDeleteLoading] = useState(false);
 
-  const handleDeleteContact = () => {
-    dispatch(deleteContactThunk(id));
+  const handleDeleteContact = async () => {
+    try {
+      setIsDeleteLoading(true);
+      await dispatch(deleteContactThunk(id));
+    } finally {
+      setIsDeleteLoading(false);
+    }
   };
 
   return (
@@ -30,7 +37,8 @@ export const ContactListItem = ({ id, name, number }) => {
       <LoadingButton
         variant="text"
         size="snall"
-        loading={isContactDeleting}
+        loading={isDeleteLoading}
+        disabled={isContactDeleting}
         aria-label="delete contact"
         onClick={handleDeleteContact}
       >
