@@ -10,6 +10,7 @@ const initialState = {
     items: [],
     isLoading: false,
     isContactCreating: false,
+    isContactDeleting: false,
     error: null,
   },
   filter: '',
@@ -44,6 +45,7 @@ const contactsSlice = createSlice({
         state.contacts = {
           ...state.contacts,
           isLoading: false,
+          isContactDeleting: false,
           items: state.contacts.items.filter(
             contact => contact.id !== payload.id
           ),
@@ -54,6 +56,9 @@ const contactsSlice = createSlice({
       })
       .addCase(addContactThunk.pending, state => {
         state.contacts.isContactCreating = true;
+      })
+      .addCase(deleteContactThunk.pending, state => {
+        state.contacts.isContactDeleting = true;
       })
       .addMatcher(
         isAnyOf(
@@ -76,6 +81,7 @@ const contactsSlice = createSlice({
             ...state.contacts,
             isLoading: false,
             isContactCreating: false,
+            isContactDeleting: false,
             error: payload,
           };
         }
