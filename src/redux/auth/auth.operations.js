@@ -3,7 +3,7 @@ import axios from 'axios';
 import { LOGIN_ERROR, REGISTRATION_ERROR } from 'constants/errors';
 
 export const axiosInstance = axios.create({
-  baseURL: 'https://connections-api.herokuapp.com/',
+  baseURL: 'https://connections-api.goit.global/',
 });
 
 const setAuthHeader = token => {
